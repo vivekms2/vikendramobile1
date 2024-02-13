@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px; /* Add padding for spacing */
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Set table width to 100% */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Print Report</h1>
+    <table border="1">
+        <thead>
+            <tr>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>IMEI Number</th>
+            <th>Name of Purchaser</th>
+            <th>Purchaser Phone No</th>
+            <th>Purchase</th>
+            <th>Name of Seller</th>
+            <th>Seller Phone No</th>
+            <th>Sale</th>
+            <th>Expense</th>
+            <th>Profit</th>
+            <th>Total Profit</th>
+            <th>Remarks</th>
+            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in database %}
+            <tr>
+            <td>{{ entry['Date'] }}</td>
+            <td>{{ entry['Product Name'] }}</td>
+            <td>{{ entry['Quantity'] }}</td>
+            <td>{{ entry['IMEI number'] }}</td>
+            <td>{{ entry['Name of Purchaser'] }}</td>
+            <td>{{ entry['Purchaser Phone No'] }}</td>
+            <td>{{ entry['Purchase'] }}</td>
+            <td>{{ entry['Name of Seller'] }}</td>
+            <td>{{ entry['Seller Phone No'] }}</td>
+            <td>{{ entry['Sale'] }}</td>
+            <td>{{ entry['Expense'] }}</td>
+            <td>{{ entry['Profit'] }}</td>
+            <td>{{ entry['Total Profit'] }}</td>
+            <td>{{ entry['Remarks'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        // This will print the report when the page is loaded
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+    <button onclick="window.location.href = '/';">Back to Home Page</button>
+</body>
+</html>

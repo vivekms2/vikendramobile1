@@ -1,0 +1,332 @@
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIKENDRA MOBILE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #090931;
+            height: 100%; /* Set body height to 100% */
+        }
+
+        h1 {
+            text-align: center;
+            color: #f9f2f2;
+        }
+
+        .container {
+            min-height: 150vh; /* Set minimum height of container to 100% of viewport height */
+            display: flex;
+            flex-direction: row;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Set table width to 100% */
+            flex: 1; /* Allow table to occupy remaining space in container */
+            border: 1px solid #000; /* Add border to the table */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            width: auto; /* Let columns size dynamically */
+        }
+
+        .input-container {
+            display: flex;
+            align-items: left;
+            margin-bottom: 10px; /* Add some space between input containers */
+        }
+
+        .input-container label {
+            flex: 0 0 200px; /* Adjust width as needed */
+            margin-right: 10px; /* Add some space between label and input */
+        }
+
+        .input-container select, .input-container input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 1px;
+            width: 100%; /* Set input width to 100% */
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* New CSS code */
+        a:last-of-type {
+            color: white;
+        }
+
+        /* CSS for the Print Report heading */
+        #print_report_heading {
+            font-size: 16px; /* Set font size to smaller */
+        }
+    </style>
+</head>
+<body>
+    <h1>VIKENDRA MOBILE</h1>
+    
+    <table>
+        <tr>
+            <td>
+                <form id="entry_form" action="/add_entry" method="POST">
+                    <div class="input-container">
+                        <label for="product_name">Product Name:</label>
+                        <select id="product_name" name="product_name">
+                            <option value="product1">Product 1</option>
+                            <option value="product2">Product 2</option>
+                            <option value="product3">Product 3</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                        <button type="button" onclick="addProduct()">+</button>
+                    </div>
+                    <div class="input-container">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity">
+                    </div>
+                    <div class="input-container">
+                        <label for="imei_number">IMEI Number:</label>
+                        <input type="text" id="imei_number" name="imei_number">
+                    </div>
+                    <div class="input-container">
+                        <label for="purchaser_name">Name of Purchaser:</label>
+                        <input type="text" id="purchaser_name" name="purchaser_name">
+                    </div>
+                    <div class="input-container">
+                        <label for="purchaser_phone">Purchaser Phone No:</label>
+                        <input type="tel" id="purchaser_phone" name="purchaser_phone">
+                    </div>
+                    <div class="input-container">
+                        <label for="purchase">Purchase:</label>
+                        <input type="number" id="purchase" name="purchase">
+                    </div>
+                    <div class="input-container">
+                        <label for="seller_name">Name of Seller:</label>
+                        <input type="text" id="seller_name" name="seller_name">
+                    </div>
+                    <div class="input-container">
+                        <label for="seller_phone">Seller Phone No:</label>
+                        <input type="tel" id="seller_phone" name="seller_phone">
+                    </div>
+                    <div class="input-container">
+                        <label for="sale">Sale:</label>
+                        <input type="number" id="sale" name="sale">
+                    </div>
+                    <div class="input-container">
+                        <label for="expense">Expense:</label>
+                        <input type="number" id="expense" name="expense">
+                    </div>
+                    <div class="input-container">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" style="width: 100%;"> <!-- Adjust width to 100% -->
+                    </div>
+                    <div class="input-container">
+                            <label for="remarks">Remarks:</label>
+                            <input type="text" id="remarks" name="remarks" style="width: 100%;"> <!-- Adjust width to 100% -->
+                    </div>
+                        <button type="submit">Save</button>
+                    </form>
+
+                <form action="/import_data" method="POST" enctype="multipart/form-data">
+                    <label for="file">Import Data:</label>
+                    <input type="file" id="file" name="file" accept=".xls,.xlsx">
+                    <button type="submit">Import</button>
+                </form>
+                        <td>
+                <form id="search_form">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date">
+                    
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date">
+                    
+                    <button type="button" onclick="search()">Search</button>
+                </form>
+            </td>
+            <td>
+            <form action="/delete_all" method="POST">
+                <button type="submit">Delete All</button>
+            </form>
+            </td>
+            <td>
+                <form action="/download_report" method="GET">
+                    <button type="submit">Download Report</button>
+                   <div style="position: absolute; top: 10px; right: 10px;">
+                    <a href="/logout">Logout</a>
+                </div>
+            </td>
+                <button onclick="printReport()">Print Report</button>
+            </td>
+        </tr>
+</table>
+<body>
+    <!-- Modified heading with id -->
+    <h1 id="print_report_heading">Print Report</h1>
+    <table id="data_table" border="1">
+            <thead>
+        <tr>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>IMEI Number</th>
+            <th>Name of Purchaser</th>
+            <th>Purchaser Phone No</th>
+            <th>Purchase</th>
+            <th>Name of Seller</th>
+            <th>Seller Phone No</th>
+            <th>Sale</th>
+            <th>Expense</th>
+            <th>Profit</th>
+            <th>Total Profit</th>
+            <th>Remarks</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in database %}
+        <tr>
+            <td>{{ entry['Date'] }}</td>
+            <td>{{ entry['Product Name'] }}</td>
+            <td>{{ entry['Quantity'] }}</td>
+            <td>{{ entry['IMEI number'] }}</td>
+            <td>{{ entry['Name of Purchaser'] }}</td>
+            <td>{{ entry['Purchaser Phone No'] }}</td>
+            <td>{{ entry['Purchase'] }}</td>
+            <td>{{ entry['Name of Seller'] }}</td>
+            <td>{{ entry['Seller Phone No'] }}</td>
+            <td>{{ entry['Sale'] }}</td>
+            <td>{{ entry['Expense'] }}</td>
+            <td>{{ entry['Profit'] }}</td>
+            <td>{{ entry['Total Profit'] }}</td>
+            <td>{{ entry['Remarks'] }}</td>
+            <td><a href="/delete_entry/{{ loop.index0 }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+           <tr>
+            <td colspan="6"></td>
+            <td id="total_purchase"></td>
+            <td colspan="2"></td>
+            <td id="total_sale"></td>
+            <td id="total_expense"></td>
+            <td id="total_profit"></td>
+            <td id="total_profit_sum"></td>
+            <td colspan="2"></td>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+    // Calculate and display totals
+    function calculateTotals() {
+        var purchaseTotal = 0;
+        var saleTotal = 0;
+        var expenseTotal = 0;
+        var profitTotal = 0;
+
+        var rows = document.querySelectorAll("#data_table tbody tr");
+        rows.forEach(function(row) {
+            purchaseTotal += parseFloat(row.querySelector("td:nth-child(7)").textContent);
+            saleTotal += parseFloat(row.querySelector("td:nth-child(10)").textContent);
+            expenseTotal += parseFloat(row.querySelector("td:nth-child(11)").textContent);
+            profitTotal += parseFloat(row.querySelector("td:nth-child(12)").textContent);
+        });
+
+        document.getElementById("total_purchase").textContent = purchaseTotal.toFixed(2);
+        document.getElementById("total_sale").textContent = saleTotal.toFixed(2);
+        document.getElementById("total_expense").textContent = expenseTotal.toFixed(2);
+        document.getElementById("total_profit").textContent = profitTotal.toFixed(2);
+        document.getElementById("total_profit_sum").textContent = (profitTotal - expenseTotal).toFixed(2);
+    }
+
+    // Call the function initially to calculate totals
+    calculateTotals();
+
+    // Function to add a product
+    function addProduct() {
+        var productNameInput = document.getElementById("product_name");
+        var newProductName = prompt("Enter new product name:");
+        if (newProductName) {
+            var option = document.createElement("option");
+            option.text = newProductName;
+            option.value = newProductName;
+            productNameInput.add(option);
+            productNameInput.value = newProductName;
+        }
+    }
+
+    // Function to print report
+    function printReport() {
+        window.open('/print_report', '_blank');
+    }
+
+    // Function to search
+    function search() {
+        var startDate = document.getElementById("start_date").value;
+        var endDate = document.getElementById("end_date").value;
+
+        fetch(`/search?start_date=${startDate}&end_date=${endDate}`)
+            .then(response => response.json())
+            .then(data => {
+                var tableBody = document.querySelector("#data_table tbody");
+                tableBody.innerHTML = "";
+                data.forEach(entry => {
+                    var row = tableBody.insertRow();
+                    Object.keys(entry).forEach(key => {
+                        var cell = row.insertCell();
+                        cell.appendChild(document.createTextNode(entry[key]));
+                    });
+                });
+                calculateTotals(); // Call calculateTotals() after updating table data
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+        // JavaScript function for searching
+        function search() {
+            var startDate = document.getElementById("start_date").value;
+            var endDate = document.getElementById("end_date").value;
+
+            fetch(`/search?start_date=${startDate}&end_date=${endDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    var tableBody = document.querySelector("#data_table tbody");
+                    tableBody.innerHTML = "";
+                    data.forEach(entry => {
+                        var row = tableBody.insertRow();
+                        Object.keys(entry).forEach(key => {
+                            var cell = row.insertCell();
+                            cell.appendChild(document.createTextNode(entry[key]));
+                        });
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
